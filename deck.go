@@ -11,29 +11,29 @@ func New(opts ...DeckOption) Deck {
 	var deck Deck
 	for _, s := range SuitsDefaultOrder() {
 		for _, r := range RanksDefaultOrder() {
-			deck = append(deck, Card{Suit: s, Rank: r})
+			deck = append(deck, Card{Rank: r, Suit: s})
 		}
 	}
 	for _, opt := range opts {
-		opt(deck)
+		opt(&deck)
 	}
 	return deck
 }
 
-type DeckOption func(Deck)
+type DeckOption func(*Deck)
 
 func WithJokers(numJokers int) DeckOption {
-	return func(d Deck) {
+	return func(d *Deck) {
 		for i := 0; i < numJokers; i++ {
-			d = append(d, Card{Suit: "", Rank: "Joker"})
+			*d = append(*d, Card{Rank: "Joker", Suit: ""})
 		}
 	}
 }
 
 func WithShuffle() DeckOption {
-	return func(d Deck) {
-		rand.Shuffle(len(d), func (i, j int) {
-			d[i], d[j] = d[j], d[i]
+	return func(d *Deck) {
+		rand.Shuffle(len(*d), func (i, j int) {
+			(*d)[i], (*d)[j] = (*d)[j], (*d)[i]
 		})
 	}
 }
