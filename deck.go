@@ -39,7 +39,7 @@ func WithShuffle() DeckOption {
 }
 
 func SuitsDefaultOrder() [4]string {
-	return [4]string{"spade", "diamond", "club", "heart"}
+	return [4]string{"Spade", "Diamond", "Club", "Heart"}
 }
 
 func RanksDefaultOrder() [13]string {
