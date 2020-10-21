@@ -1,9 +1,6 @@
 package deck
 
-import (
-	//"fmt"
-	"math/rand"
-)
+import "math/rand"
 
 type Deck []Card
 
@@ -32,9 +29,13 @@ func WithJokers(numJokers int) DeckOption {
 
 func WithShuffle() DeckOption {
 	return func(d *Deck) {
-		rand.Shuffle(len(*d), func (i, j int) {
+		//rand.Shuffle(len(*d), func (i, j int) {
+		//	(*d)[i], (*d)[j] = (*d)[j], (*d)[i]
+		//})
+		perm := rand.Perm(len(*d))
+		for i, j := range perm {
 			(*d)[i], (*d)[j] = (*d)[j], (*d)[i]
-		})
+		}
 	}
 }
 
